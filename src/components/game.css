@@ -1,0 +1,36 @@
+.game-grid {
+}
+.center
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.cross {
+    color: red; /* or any color you prefer */
+    font-size: 24px; /* adjust as needed */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .circle {
+    color: red; /* or any color you prefer */
+    font-size: 24px; /* adjust as needed */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
