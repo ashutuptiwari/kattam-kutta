@@ -1,11 +1,12 @@
 import React from "react";
 import "./App.css";
 import Game from "./components/game";
+import Heading from "./components/heading";
 
 function App() {
   return (
     <div>
-      <h1>Wassup niggers</h1>
+      <Heading />
       <Game />
     </div>
   );

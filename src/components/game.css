@@ -1,57 +1,66 @@
 .game-grid {
+  border: 2px solid #000;
+  background-color:rgb(64, 79, 100) 11.2%;
 }
-.center
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#container {
+  position: relative;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .row {
   display: flex;
 }
-
 .cell {
   width: 100px;
   height: 100px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-.cross {
-    color: red; /* or any color you prefer */
-    font-size: 24px; /* adjust as needed */
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .circle {
-    color: red; /* or any color you prefer */
-    font-size: 24px; /* adjust as needed */
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-}
-
-.button {
-  padding: 10px 20px;
-  margin-right: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+  border: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
   cursor: pointer;
 }
 
-.button.disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.cell:hover:not(.circle):not(.cross){
+  background-color: rgb(74, 94, 121);
 }
 
+.circle {
+  color: #2196f3;
+  cursor:not-allowed;
+}
+
+.cross {
+  color: #f44336;
+  cursor:not-allowed;
+}
+#buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+/* Button Styles */
+.button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  background-color: #cdd6de;
+}
+
+
+.button:disabled {
+  background-color: #6a737b;
+  color: black;
+  opacity: 1;
+  cursor: not-allowed;
+}

@@ -9,15 +9,18 @@ const Game = () => {
     Array(3).fill(0),
     Array(3).fill(0),
   ]);
+
   const [move, setMove] = useState(0);
   const [playFirst, setPlayfirst] = useState("None");
   const [disabledButton1, setDisabledButton1] = useState(false);
   const [disabledButton2, setDisabledButton2] = useState(false);
+
   useEffect(() => {
     console.log("board updated", board);
   }, [board]);
+
   useEffect(() => {
-    if (move == 0) {
+    if (move === 0) {
       setDisabledButton1(false);
       setDisabledButton2(false);
       setPlayfirst("None");
@@ -27,32 +30,32 @@ const Game = () => {
   useEffect(() => {
     sendMove(-1, -1, -1);
   }, []);
-  const handlePlaySecond = async()=>{
+
+  const handlePlaySecond = async () => {
     console.log("new move fetched!!");
-      setMove(move + 1);
-      const updatedBoard = [...board];
-      const response2 = await getMove();
-      if (response2 && response2.data) {
-        let r = response2.data.row;
-        let c = response2.data.col;
-        updatedBoard[r][c] = 2;
-        setBoard(updatedBoard);
-        if (response2) {
-          if (response2.data.termination !== -1) {
-            setTimeout(() => {
-              setBoard([Array(3).fill(0), Array(3).fill(0), Array(3).fill(0)]);
-              setMove(0);
-            }, 1000);
-            return;
-          }
+    setMove(move + 1);
+    const updatedBoard = [...board];
+    const response2 = await getMove();
+    if (response2 && response2.data) {
+      let r = response2.data.row;
+      let c = response2.data.col;
+      updatedBoard[r][c] = 2;
+      setBoard(updatedBoard);
+      if (response2) {
+        if (response2.data.termination !== -1) {
+          setTimeout(() => {
+            setBoard([Array(3).fill(0), Array(3).fill(0), Array(3).fill(0)]);
+            setMove(0);
+          }, 2000);
+          return;
         }
       }
+    }
+  };
 
-
-  }
   const handleCellClick = async (row: number, col: number) => {
     if (board[row][col] !== 0) {
-      alert("invalid move.Try Again!!");
+      alert("andha hai kya laude");
       return;
     }
     if (playFirst === "None") {
@@ -63,8 +66,10 @@ const Game = () => {
       const response1 = await sendMove(row, col, move);
       const updatedBoard = [...board];
       updatedBoard[row][col] = 1; // 1 for 'O', 2 for 'X'
+      //setBoard(updatedBoard);
       if (response1) {
         if (response1.data.termination !== -1) {
+          setBoard(updatedBoard);
           setTimeout(() => {
             setBoard([Array(3).fill(0), Array(3).fill(0), Array(3).fill(0)]);
             setMove(0);
@@ -96,7 +101,7 @@ const Game = () => {
   };
 
   return (
-    <div>
+    <div id="container">
       <div id="buttons">
         <button
           className={`button ${disabledButton1 ? "disabled" : ""}`}
@@ -145,5 +150,4 @@ const Game = () => {
     </div>
   );
 };
-
 export default Game;
