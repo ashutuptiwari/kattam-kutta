@@ -116,7 +116,7 @@ const Game = () => {
         <button
           className={`button ${disabledButton2 ? "disabled" : ""}`}
           onClick={() => {
-            if (!disabledButton2) {
+            if (!disabledButton2&&!disabledButton1) {
               setPlayfirst("agent");
               handlePlaySecond();
               setDisabledButton1(true);
