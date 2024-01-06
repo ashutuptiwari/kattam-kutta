@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./game.css";
 import sendMove from "../api/sendMove";
 import getMove from "../api/getMove";
+import sendBot from "../api/sendBot";
 
 const Game = () => {
   const [board, setBoard] = useState<number[][]>([
@@ -14,6 +15,11 @@ const Game = () => {
   const [playFirst, setPlayfirst] = useState("None");
   const [disabledButton1, setDisabledButton1] = useState(false);
   const [disabledButton2, setDisabledButton2] = useState(false);
+  const [change, setChange] = useState(true);
+
+  const [disabledButton3, setDisabledButton3] = useState(false);
+  const [disabledButton4, setDisabledButton4] = useState(false);
+  const [bot, setBot] = useState("None");
 
   useEffect(() => {
     console.log("board updated", board);
@@ -24,12 +30,23 @@ const Game = () => {
       setDisabledButton1(false);
       setDisabledButton2(false);
       setPlayfirst("None");
+      setChange(true);
+    } else {
+      setChange(false);
     }
   }, [move]);
 
   useEffect(() => {
     sendMove(-1, -1, -1);
   }, []);
+
+  const sendB=async(f:number)=>{
+    const response= await sendBot(f);
+    if(response)
+    {
+      console.log(response.data.message)
+    }
+  }
 
   const handlePlaySecond = async () => {
     console.log("new move fetched!!");
@@ -58,8 +75,12 @@ const Game = () => {
       alert("andha hai kya laude");
       return;
     }
-    if (playFirst === "None") {
-      alert("choose bitch!");
+    if(bot==='None')
+    {
+      alert("chose a bot!");
+    }
+    else if (playFirst === "None") {
+      alert("choose first or second");
       return;
     } else if (playFirst === "user" || playFirst === "agent") {
       setMove(move + 1);
@@ -104,7 +125,35 @@ const Game = () => {
     <div id="container">
       <div id="buttons">
         <button
-          className={`button ${disabledButton1 ? "disabled" : ""}`}
+          className={`button1 ${disabledButton3?"disabled":""}`}
+          onClick={() => {
+            if (change) {
+              setBot('new');
+              setDisabledButton3(false);
+              setDisabledButton4(true);
+              sendB(2);
+            }
+          }}
+        >
+          Train bot from scratch
+        </button>
+        <button
+          className={`button1 ${disabledButton4?"disabled":""}`}
+          onClick={() => {
+            if (change) {
+              setBot('optimal')
+              setDisabledButton4(false);
+              setDisabledButton3(true);
+              sendB(1);
+            }
+          }}
+        >
+          Play with Optimal bot
+        </button>
+      </div>
+      <div id="buttons">
+        <button
+          className={`button`}
           onClick={() => {
             setPlayfirst("user");
             setDisabledButton2(true);
@@ -114,9 +163,9 @@ const Game = () => {
           Play First
         </button>
         <button
-          className={`button ${disabledButton2 ? "disabled" : ""}`}
+          className={`button`}
           onClick={() => {
-            if (!disabledButton2&&!disabledButton1) {
+            if (!disabledButton2 && !disabledButton1) {
               setPlayfirst("agent");
               handlePlaySecond();
               setDisabledButton1(true);
