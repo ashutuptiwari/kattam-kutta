@@ -1,7 +1,7 @@
 import axios from "axios";
 const sendMove = async (row: number, col: number, move: number) => {
   try {
-    const response = await axios.post("http://localhost:5000/api/logMove", {
+    const response = await axios.post("https://kattam-kutta-backend.onrender.com/api/logMove", {
       row,
       col,
       move,
